@@ -2,15 +2,27 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>[[${product.title}]] &ndash; fhh</title>
+    <title>edit [[${product.title}]] &ndash; fhh</title>
 </head>
 <body>
-<a th:href="@{/catalogue/products/list}">К товарам</a>
+<a th:href="@{/templates/catalogue-api/products/{productId}(productId=${product.id})}">К товару товарам</a>
+<div data-th-if="${errors}">
+    <h2>Ошибка</h2>
+    <ul>
+        <li data-th-each="error: ${errors}" data-th-text="${error}"></li>
+    </ul>
+</div>
 <h1 th:text="${product.title}"></h1>
-<ul>
-  <li><strong>ID</strong>: <span th:text="${product.id}"></span></li>
-  <li><strong>Название</strong>: <span th:text="${product.title}"></span></li>
-  <li><strong>Детали</strong>: <span th:text="${product.details}"></span></li>
-</ul>
+<form method="post" data-th-action="@{/templates/catalogue-api/products/{productId}/edit(productId=${product.id})}">
+    <label>
+        Название:<br>
+        <input type="text" name="title" data-th-value="${payload != null ? payload.title : product.title}">
+    </label><br>
+    <label>
+        Описание:<br>
+        <textarea name="details" data-th-text="${payload != null ? payload.details : product.details}"></textarea>
+    </label><br>
+    <button type="submit">Изменить</button>
+</form>
 </body>
 </html>

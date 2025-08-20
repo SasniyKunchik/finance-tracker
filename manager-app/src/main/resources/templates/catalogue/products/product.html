@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <title>[[${product.title}]]</title>
 </head>
 <body>
-$END$
+<a th:href="@{/templates/catalogue-api/products/list}">&larr; К списку товаров</a>
+<h1 data-th-text="${product.title}"></h1>
+<ul>
+  <li><strong>ID</strong>: <span data-th-text="${product.id}"></span> </li>
+  <li><strong>title</strong>: <span data-th-text="${product.title}"></span> </li>
+  <li><strong>details</strong>: <span data-th-text="${product.details}"></span> </li>
+</ul>
+<a data-th-href="@{/templates/catalogue-api/products/{productId}/edit(productId=${product.id})}">Изменить</a>
+<form method="post" data-th-action="@{/templates/catalogue-api/products/{productId}/delete(productId=${product.id})}">
+  <button type="submit">Удалить</button>
+</form>
+
 </body>
 </html>

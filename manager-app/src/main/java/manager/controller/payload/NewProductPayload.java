@@ -1,4 +1,4 @@
 package manager.controller.payload;
 
-public record UpdateProductPayload() {
+public interface NewProductPayload {
 }
